@@ -1,0 +1,54 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+.nobullet {
+list-style-type: none;
+}
+
+.centered-list {
+    text-align: center; /* Centers the list container */
+}
+
+.centered-list ul {
+    display: inline-block; /* Keeps the list items left-aligned */
+    text-align: left; /* Aligns the list items to the left */
+}
+
+th, td {
+  padding-right: 40px;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a.button {
+    padding: 1px 6px;
+    border: 1px outset buttonborder;
+    border-radius: 3px;
+    color: buttontext;
+    background-color: buttonface;
+    text-decoration: none;
+}
