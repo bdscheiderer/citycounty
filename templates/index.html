@@ -10,10 +10,50 @@
 
     <div>
         <p align="left">
-            SEARCH FORM
+                SEARCH FORM
         </p>
     </div>
-    <br>
+    
+    <form action="/" method="post">
+        <div class="mb-3">
+            <!--label for="string">Enter full or partial name: </label-->
+            <input autocomplete="off" autofocus class="form-control mx-auto" name="name" placeholder="Name" type="text">
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto" name="lowerValue" placeholder="Minimum Population" type="number" min="0" max="9999999">
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto" name="upperValue" placeholder="Maximum Population" type="number" min="0" max="9999999">
+        </div>
+        <div>
+            <select class="form-control mx-auto" name="cityorcounty" type="list">
+                <option value=""><i>Both</i></option>
+                <option value="city">City</option>
+                <option value="county">County</option>
+            </select>
+        </div>
+        <div>
+            <select class="form-control mx-auto" name="class" type="list-long">
+                <option value="">Choose an option or leave blank</option>
+                <option value="county charter">County charter</option>
+                <option value="county first class">County first class</option>
+                <option value="county second class">County second class</option>
+                <option value="county third class without township">County third class without township</option>
+                <option value="county third class with township">County third class with township</option>
+                <option value="county fourth class">County fourth class</option>
+                <option value="city special charter">City special charter</option>
+                <option value="city home rule">City home rule</option>
+                <option value="city third class">City third class</option>
+                <option value="city fourth class">City fourth class</option>
+                <option value="village">Village</option>
+                <option value="census designated place">Census designated place</option>
+                <option value="city not within a county">City not within a county</option>
+            </select>
+        </div>
+        <br>
+
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
 
     <div>
         <p align="left">

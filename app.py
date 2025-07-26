@@ -11,23 +11,54 @@ DATABASE = "citycounty.db"
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template("index.html")
+    if request.method == 'POST':
+        # Handle POST request (e.g., process form data)
+        searchData = {}
+        searchData['name'] = request.form.get('name')
+        searchData['lowerValue'] = request.form.get('lowerValue')
+        searchData['upperValue']= request.form.get('upperValue')
+        searchData['cityorcounty'] = request.form.get('cityorcounty')
+        searchData['class'] = request.form.get('class')
+
+        searchResults = query_database(searchData)
+
+        return render_template("results.html", searchData=searchData, searchResults=searchResults)
+    else:
+        # Handle GET request (e.g., display a form)
+        return render_template('index.html')
+
+@app.route("/results", methods=["GET", "POST"])
+def results():
+
+    # User reached route via POST that means new search
+    if request.method == "POST":
+        return render_template("index.html")
+
+    # User reached route via GET
+    else:
+        return render_template("results.html")
+
 
 @app.route("/map")
 def map():
     return render_template("map.html")
 
+
 @app.route("/faq")
 def faq():
     return render_template("faq.html")
+
 
 @app.route("/about")
 def about():
     return render_template("about.html")
 
 
+def query_database(searchData):
+    searchResults = DATABASE
+    return searchResults
 
 if __name__ == '__main__':
     app.run(debug=True) # Runs the development server

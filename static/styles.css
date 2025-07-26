@@ -57,3 +57,32 @@ img {
   width: 100%;
   height: auto;
 }
+
+input[type="text"],
+input[type="number"],
+input[type="list"] {
+  width: 280px; /* Set a desired width */
+  box-sizing: border-box; /* Include padding and border in the width */
+}
+
+select[type="list"] {
+  width: 280px; /* Set a desired width */
+  box-sizing: border-box; /* Include padding and border in the width */
+  margin-bottom: 15px;  /* Adds px space below */
+}
+
+select[type="list-long"] {
+  width: 280px; /* Set a desired width */
+  box-sizing: border-box; /* Include padding and border in the width */
+  margin-bottom: 15px;  /* Adds px space below */
+}
+
+.gray-text {
+    color: #2e944b/* #A9A9A9; /* Or another shade of gray like #CCCCCC */
+}
+
+<style>
+    .italic-option {
+    font-style: italic;
+    }
+</style>

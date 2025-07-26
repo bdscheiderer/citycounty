@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block main %}
+    <h5>Search Results</h5>
+    <br>
+    
+    {% if searchData %}
+        <table class="center" style="text-align: left">
+            <tr>
+                <td>Name: </td>
+                <td> {{ searchData['name'] }}</td>
+            </tr>
+            <tr>
+                <td>Minimum Population:</td>
+                <td>{{ searchData['lowerValue'] }}</td>
+            </tr>
+            <tr>
+                <td>Maximum Population:</td>
+                <td>{{ searchData['upperValue'] }}</td>
+            </tr>
+            <tr>
+                <td>City, County, or Both:</td>
+                {% if searchData['cityorcounty'] == "" %}
+                    <td>Both</td>
+                {% else %}
+                    <td>{{ searchData['cityorcounty'] }}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>Class: </td>
+                <td> {{ searchData['class'] }}</td>
+            </tr>
+        </table>
+    {% endif %}
+
+    <br>
+    <form action="/results" method="post">
+        <button class="btn btn-primary" type="submit">New Search</button>
+    </form>
+
+
+{% endblock %}
