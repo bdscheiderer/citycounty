@@ -52,3 +52,8 @@ a.button {
     background-color: buttonface;
     text-decoration: none;
 }
+
+img {
+  width: 100%;
+  height: auto;
+}

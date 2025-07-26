@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Missouri Map
+{% endblock %}
+
+{% block main %}
+    <h5>Title</h5>
+    <br>
+
+    <div>
+        Map of Missouri with counties and major cities
+        <br>
+        <img src="{{url_for('static',filename='/images/missouri.jpg')}}">
+    </div>      
+
+{% endblock %}

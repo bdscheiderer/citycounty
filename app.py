@@ -1,24 +1,33 @@
-from flask import Flask, flash, redirect, render_template, request, session
-from flask_session import Session
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 import sqlite3
 
 
-# set name of database
-# citycounty.db has two tables: city & county
-# city schema: id, Name, Population, Class, County, Seat
-# county schema: id, Name, Population, Class, Township, Seat
+''' set name of database: citycounty.db has two tables--
+    city table schema: id, Name, Population, Class, County, Seat
+    county table schema: id, Name, Population, Class, Township, Seat '''
 DATABASE = "citycounty.db"
 
 
 app = Flask(__name__)
 
-''' TO DO - users need to login??? '''
-# Configure session to use filesystem (instead of signed cookies)
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
+# @app.route("/map")
+# def map():
+#     return render_template("map.html")
+
+# @app.route("/faq")
+# def faq():
+#     return render_template("faq.html")
+
+# @app.route("/about")
+# def about():
+#     return render_template("about.html")
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True) # Runs the development server
