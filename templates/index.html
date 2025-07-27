@@ -26,10 +26,9 @@
             <input autocomplete="off" class="form-control mx-auto" name="upperValue" placeholder="Maximum Population" type="number" min="0" max="9999999">
         </div>
         <div>
-            <select class="form-control mx-auto" name="cityorcounty" type="list">
-                <option value=""><i>Both</i></option>
-                <option value="city">City</option>
+            <select class="form-control mx-auto" name="type" type="list">
                 <option value="county">County</option>
+                <option value="city">City</option>
             </select>
         </div>
         <div>
@@ -59,6 +58,47 @@
         <p align="left">
             RESULTS TABLE
         </p>
+        <br>
+   
+        {% if searchResults | length > 0 %}
+
+            {% if type == 'county' %}
+                Showing {{ searchResults | length }} county results:
+            {% else %}
+                Showing city results:
+            {% endif %}
+
+            <table class="center">
+                <thead>
+                    <tr>
+                        <th class="text-begin">Name</th>
+                        <th class="text-end">Population</th>
+                        <th class="text-end">Class</th>
+                        <th class="text-end">Township</th>
+                        <th class="text-end">Seat</th>
+                    </tr>
+                </thead>
+
+            <tbody>
+
+            <!-- TODO: Loop through the database entries to display them in this table -->
+            {% for row in searchResults %}
+                <tr>
+                    <td class="text-begin">{{ row['name'] }}</td>
+                    <td class="text-end">{{ row['population'] }}</td>
+                    <td class="text-end">{{ row['class'] }}</td>
+                    <td class="text-end">{{ row['township']}}</td>
+                    <td class="text-end">{{ row['seat']}}</td>
+                </tr>
+            {% endfor %}
+
+        {% else %}
+            No Results
+        {% endif %}
+
+
+
+
     </div>
 
 {% endblock %}
