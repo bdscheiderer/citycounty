@@ -37,6 +37,10 @@ list-style-type: none;
 
 th, td {
   padding-right: 40px;
+  max-width: 10px; /* Adjust as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .center {
@@ -81,8 +85,21 @@ select[type="list-long"] {
     color: #2e944b/* #A9A9A9; /* Or another shade of gray like #CCCCCC */
 }
 
-<style>
-    .italic-option {
-    font-style: italic;
-    }
-</style>
+.btn-absolute-bottom {
+  position: absolute;
+  bottom: 20px; /* Adjust as needed for spacing from the bottom */
+  right: 20px; /* Adjust as needed for spacing from the right */
+}
+
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Light gray for odd rows */
+}
+
+.table-striped tbody tr:nth-child(even) {
+    background-color: #ffffff; /* White for even rows (or a slightly different shade) */
+}
+
+.text-begin {
+  text-align: left;
+}
+

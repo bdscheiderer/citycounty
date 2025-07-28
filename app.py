@@ -1,9 +1,10 @@
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, render_template, request
 import sqlite3
 
 
 ''' set constants including name of database and table
-    citycounty schema: id, Name, Population, Class, County, Seat
+    citycounty schema: id INTEGER PRIMARY KEY, name TEXT NOT NULL,
+    type TEXT, population INTEGER, class TEXT, countyseat TEXT
 '''
 DATABASE = "citycounty.db"  # sqlite3 database located in same directory
 TABLENAME = "citycounty"    # table name in db
@@ -20,20 +21,19 @@ def index():
         # Handle POST request (e.g., process form data)
         searchData = get_search_data()
         searchResults = get_search_results(searchData)
-
-        # return render_template("results.html", searchData=searchData, searchResults=searchResults)
-        return render_template("index.html", type=searchData['type'], searchResults=searchResults)
+        # render results.html with search results in table form
+        return render_template("results.html", type=searchData['type'], searchResults=searchResults)
     else:
         # Handle GET request (e.g., display a form)
         return render_template('index.html')
 
+
 @app.route("/results", methods=["GET", "POST"])
 def results():
 
-    # User reached route via POST that means new search
+    # User reached route via POST (that means user clicked new search button)
     if request.method == "POST":
-        type = None
-        return render_template("index.html", type=type)
+        return render_template("index.html")
 
     # User reached route via GET
     else:
@@ -68,26 +68,26 @@ def get_search_results(searchData):
     db.row_factory = sqlite3.Row
 
     # create query as string and tuple of ? parameters
-    query = f"Select * FROM county WHERE name LIKE ? AND population >= ? AND population <= ? AND class LIKE ?"
-    query_tuple = (searchData['name'], searchData['lowerValue'], searchData['upperValue'], searchData['class'])
+    query = f"Select * FROM {TABLENAME} WHERE name LIKE ? AND population >= ? AND population <= ? AND class LIKE ? AND type LIKE ?"
+    placeholders = (searchData['name'], searchData['lowerValue'], searchData['upperValue'], searchData['class'], searchData['type'])
+
 
     # query database for search results, using ? placeholders
-    with db:
-        cursor = db.cursor()
-        cursor.execute(query, query_tuple)
-        searchResults = cursor.fetchall()
+    try:
+        with db:
+            cursor = db.cursor()
+            cursor.execute(query, placeholders)
+            return cursor.fetchall()
+    
+    except sqlite3.Error as e:
+        print(f"Error connecting to database: {e}") # change this to flash message
+        return None
         
-        if searchResults:
-            print(searchResults[0])
-        else:
-            print("No results")
-        return searchResults
-
 
 def get_search_data():
         
         ''' This function retrieves search terms from user input 
-            entered on the /index.html search form
+            entered on the index.html search form
         '''
         
         # using dictionary to store the data from the row.factory sqlite3 option
@@ -113,6 +113,7 @@ def clean_data(searchData):
         if key == "name" and (value == "" or value == None):
             searchData[key] = "%"
         # this strips any whitespace and uses "%pattern%" to match partial names
+        # note: sql search is case insensitive for ASCII characters
         elif key == 'name':
              searchData[key] = f"%{value.strip()}%"
         # if max population is blank, set to a high value to return all greater than the min
@@ -121,9 +122,9 @@ def clean_data(searchData):
         # if min population is blank, set to zero to search for all up the max
         elif key == "lowerValue" and (value == "" or value == None):
             searchData[key] = MINPOP
-        # if type is blank, use "%" wildcard to search for both cities and counties
-        elif key == "type" and (value == '' or value== None):
-            searchData["class"] = "%"
+        # if type is blank or "both", use "%" wildcard to search for both cities and counties
+        elif key == "type" and (value == '' or value == None or value == "Both" or value == "both"):
+            searchData["type"] = "%"
         # if class blank, uses "%" wildcard to search for any class
         elif key == "class" and (value == '' or value== None):
             searchData["class"] = "%"

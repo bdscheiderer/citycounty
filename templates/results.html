@@ -5,42 +5,46 @@
 {% endblock %}
 
 {% block main %}
-    <h5>Search Results</h5>
-    <br>
-    
-    {% if searchData %}
-        <table class="center" style="text-align: left">
-            <tr>
-                <td>Name: </td>
-                <td> {{ searchData['name'] }}</td>
-            </tr>
-            <tr>
-                <td>Minimum Population:</td>
-                <td>{{ searchData['lowerValue'] }}</td>
-            </tr>
-            <tr>
-                <td>Maximum Population:</td>
-                <td>{{ searchData['upperValue'] }}</td>
-            </tr>
-            <tr>
-                <td>City, County, or Both:</td>
-                {% if searchData['cityorcounty'] == "" %}
-                    <td>Both</td>
-                {% else %}
-                    <td>{{ searchData['cityorcounty'] }}</td>
-                {% endif %}
-            </tr>
-            <tr>
-                <td>Class: </td>
-                <td> {{ searchData['class'] }}</td>
-            </tr>
-        </table>
-    {% endif %}
+    <div class="mt-1 mb-1">
+        <h5>Search Results</h5>
+        <br>
+        <form action="/results" method="post">
+            <button class="btn btn-primary" type="submit">New Search</button>
+        </form>
+        <br>
+    </div>
+    <div class="table-responsive mt-0 mb-1">
 
+        {% if searchResults | length > 0 %}
+            Showing {{ searchResults | length }} search results:
+
+            <table class="table table-sm table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-begin bg-dark text-white">Name</th>
+                        <th class="text-center bg-dark text-white">Population</th>
+                        <th class="ext-center bg-dark text-white">Class</th>
+                    </tr>
+                </thead>
+
+
+            <!-- Loop through the database entries to display them in a table -->
+            {% for row in searchResults %}
+                <tr>
+                    <td class="text-begin">{{ row['name'] }}</td>
+                    <td class="text-end">{{ row['population'] }}</td>
+                    <td class="text-end">{{ row['class'] }}</td>
+                </tr>
+            {% endfor %}
+
+            <tbody>
+
+        {% else %}
+            No Results
+        {% endif %}
+
+    </div>
     <br>
-    <form action="/results" method="post">
-        <button class="btn btn-primary" type="submit">New Search</button>
-    </form>
 
 
 {% endblock %}
