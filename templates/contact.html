@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    About
+{% endblock %}
+
+{% block main %}
+    <h5>Contact</h5>
+    <br>
+    <div>
+        <p class="text-start">Send a message with comments and suggestions:</p>
+    </div>   
+    <div class="col-md-9 col-sm-12">
+        <form action="/contact" method="POST" id="contactForm">
+            <!-- Name Input -->
+            <div class="form-floating mb-3">
+                <input class="form-control" id="name" name="name" type="text" placeholder="Name" required />
+                <label for="name">Full Name</label>
+            </div>
+
+            <!-- Email Input -->
+            <div class="form-floating mb-3">
+                <input class="form-control" id="email" name="email" type="email" placeholder="Email Address" required />
+                <label for="email">Email Address</label>
+            </div>
+
+            <!-- Subject Input (Optional) -->
+            <div class="form-floating mb-3">
+                <input class="form-control" id="subject" name="subject" type="text" placeholder="Subject" />
+                <label for="subject">Subject</label>
+            </div>
+
+            <!-- Message Input -->
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="text" name="text" placeholder="Your Message" style="height: 10rem;" required></textarea>
+                <label for="message">Message</label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+                <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button>
+            </div>
+        </form>
+        </div>
+{% endblock %}

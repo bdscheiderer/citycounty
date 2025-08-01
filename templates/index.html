@@ -1,58 +1,70 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    MoCityCounty
+    Missouri City County Search
 {% endblock %}
 
 {% block main %}
-    <h5>Missouri City County Data Search</h5>
-    <br>
-
     <div>
         <p align="center">
-                Enter search terms:
+                <h5>Enter search criteria to search the Missouri City County database:</h5>
         </p>
     </div>
     
     <form action="/" method="post">
-        <div class="mb-3">
-            <!--label for="string">Enter full or partial name: </label-->
-            <input autocomplete="off" autofocus class="form-control mx-auto" name="name" placeholder="Name" type="text">
+    <div class="row">
+        <!-- Column for instructions -->
+        <div class="col-md-6">
+            <h6>Instructions</h6>
+            <ul id="list-left">
+                <li>Name: Enter full or partial name.</li>
+                <li>Population: Enter minimum and maximum population criteria.</li>
+                <li>City-County: Select an option to search for cities only, counites only, or both.</li>
+                <li>Classification: Select an option to narrow the search to a specific city or county classification</li>
+                <li>Leave all fields blank to return all cities and counties in the database. </li>
+                <li>A search will return the name, population, and classification of all matches. </li>
+            </ul>
         </div>
-        <div class="mb-3">
-            <input autocomplete="off" class="form-control mx-auto" name="lowerValue" placeholder="Minimum Population" type="number" min="0" max="9999999">
-        </div>
-        <div class="mb-3">
-            <input autocomplete="off" class="form-control mx-auto" name="upperValue" placeholder="Maximum Population" type="number" min="0" max="9999999">
-        </div>
-        <div>
-            <select class="form-control mx-auto" name="type" type="list">
-                <option value="both">Both</option>
-                <option value="county">County</option>
-                <option value="city">City</option>
-            </select>
-        </div>
-        <div>
-            <select class="form-control mx-auto" name="class" type="list-long">
-                <option value="">Choose an option or leave blank</option>
-                <option value="county charter">County charter</option>
-                <option value="county first class">County first class</option>
-                <option value="county second class">County second class</option>
-                <option value="county third class without township">County third class without township</option>
-                <option value="county third class with township">County third class with township</option>
-                <option value="county fourth class">County fourth class</option>
-                <option value="city special charter">City special charter</option>
-                <option value="city home rule">City home rule</option>
-                <option value="city third class">City third class</option>
-                <option value="city fourth class">City fourth class</option>
-                <option value="village">Village</option>
-                <option value="census designated place">Census designated place</option>
-                <option value="city not within a county">City not within a county</option>
-            </select>
-        </div>
-        <br>
 
-        <button class="btn btn-primary" type="submit">Search</button>
+        <!-- Column for input fields -->
+        <div class="col-md-6">
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto" name="name" placeholder="Name" type="text">
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" class="form-control mx-auto" name="lowerValue" placeholder="Minimum Population" type="number" min="0" max="9999999">
+            </div>
+            <div class="mb-3">
+                <input autocomplete="off" class="form-control mx-auto" name="upperValue" placeholder="Maximum Population" type="number" min="0" max="9999999">
+            </div>
+            <div>
+                <select class="form-control mx-auto" name="type" type="list">
+                    <option value="both">Both City and County</option>
+                    <option value="county">County</option>
+                    <option value="city">City</option>
+                </select>
+            </div>
+            <div>
+                <select class="form-control mx-auto" name="class" type="list-long">
+                    <option value="">Choose class option (or leave blank)</option>
+                    <option value="county charter">County charter</option>
+                    <option value="county first class">County first class</option>
+                    <option value="county second class">County second class</option>
+                    <option value="county third class without township">County third class without township</option>
+                    <option value="county third class with township">County third class with township</option>
+                    <option value="county fourth class">County fourth class</option>
+                    <option value="city home rule">City home rule</option>
+                    <option value="city third class">City third class</option>
+                    <option value="city fourth class">City fourth class</option>
+                    <option value="city special charter">City special charter</option>
+                    <option value="village">Village</option>
+                    <option value="census designated place">Census designated place</option>
+                </select>
+            </div>
+            <br>
+        </div>
+    </div>
+        <button class="btn custom-blue-button" type="submit">Search</button>
     </form>
 
 

@@ -1026,8 +1026,9 @@ St. George,city,1553,census designated place,St. Louis
 St. James,city,3935,city third class,Phelps
 St. John,city,6643,city home rule,St. Louis
 St. Joseph,city,72473,city home rule,Buchanan
+St. Louis,city,301578,city home rule,NA
 St. Louis,county,1004125,county charter,Clayton
-St. Louis City,city,301578,city home rule,NA
+St. Louis City,county,301578,city not within a county,St. Louis City
 St. Martins,city,1191,city fourth class,Cole
 St. Mary,city,309,city fourth class,Ste. Genevieve
 St. Paul,city,3005,city fourth class,St. Charles

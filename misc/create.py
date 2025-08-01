@@ -8,6 +8,7 @@
 import pandas as pd
 import csv
 import sqlite3
+import datetime
 
 def main():
 
@@ -16,8 +17,55 @@ def main():
     datafile = "data/cc2022.csv"
 
     # create database and load csv data to table
-    create_database(database)
-    create_table(database, datafile)
+    #create_database(database)
+    #create_log_table(database)
+    #create_table(database, datafile)
+
+    test_log(database)
+
+
+def test_log(database):
+    try:
+        with sqlite3.connect(database) as conn:
+            cursor = conn.cursor()
+            
+#INSERT INTO table_name (column1, column2, column3, ...) VALUES (value1, value2, value3, ...);
+
+            user_id = ""
+            dt = datetime.datetime.now().isoformat()
+            query = "test query"
+
+            cursor.execute('''
+                INSERT INTO log (
+                           user_id, datetime, query)
+                           VALUES (?, ?, ?)
+            ''', (user_id, dt, query))
+
+            conn.commit() # Commit changes to the database
+        print(f"Database {database} updated successfully.")
+    except sqlite3.Error as e:
+        print(f"Error connecting to or creating database: {e}")
+
+# def create_log_table(database):
+#     # create log table
+#     try:
+#         with sqlite3.connect(database) as conn:
+#             cursor = conn.cursor()
+            
+#             cursor.execute('''
+#                 CREATE TABLE IF NOT EXISTS log (
+#                     id INTEGER PRIMARY KEY,
+#                     user_id TEXT,
+#                     datetime TIMESTAMP,   
+#                     query TEXT
+#                 )
+#             ''')
+
+#             conn.commit() # Commit changes to the database
+#         print(f"Database {database} updated successfully.")
+#     except sqlite3.Error as e:
+#         print(f"Error connecting to or creating database: {e}")
+
 
 
 def create_database(database):
@@ -28,13 +76,22 @@ def create_database(database):
             cursor = conn.cursor()
             
             cursor.execute('''
-                CREATE TABLE IF NOT EXISTS citycounty (
+                CREATE TABLE IF NOT EXISTS citycounty2 (
                     id INTEGER PRIMARY KEY,
                     name TEXT NOT NULL,
                     type TEXT,   
                     population INTEGER,
                     class TEXT,
                     countyseat TEXT
+                )
+            ''')
+
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS log (
+                    id INTEGER PRIMARY KEY,
+                    user_id TEXT,
+                    datetime TIMESTAMP,   
+                    query TEXT
                 )
             ''')
 
@@ -54,7 +111,7 @@ def create_table(database, datafile):
         conn = sqlite3.connect(database)
 
         # Write DataFrame to SQLite table
-        table_name = "citycounty"
+        table_name = "citycounty2"
         df.to_sql(table_name, conn, if_exists='replace', index=False) # 'replace' will overwrite if table exists
 
         print(f"Data from {datafile} successfully loaded into {table_name} in {database} using pandas.")

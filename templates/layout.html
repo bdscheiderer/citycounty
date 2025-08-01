@@ -3,37 +3,36 @@
 <html lang="en">
 
     <head>
-
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1, width=device-width">
 
         <!-- http://getbootstrap.com/docs/5.3/ -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 
         <!-- https://favicon.io -->
         <link rel="icon" href="{{url_for('static',filename='/images/favicon.ico')}}" type="image/x-icon">
 
         <link href="/static/styles.css" rel="stylesheet">
+        <!-- <link href="{{url_for('static', filename='static/custom.css')}}" rel="stylesheet"> -->
 
-        <title>Missouri City County Data Search {% block title %}{% endblock %}</title>
-
+        <title>{% block title %}{% endblock %}</title>
     </head>
 
     <body>
-
         <nav class="bg-light border navbar navbar-expand-md navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/"><img src="{{url_for('static',filename='/images/favicon.ico')}}"  alt="Missouri"> </a>
+                <a class="navbar-brand" href="/"><img src="{{url_for('static',filename='/images/favicon.ico')}}"  alt="Missouri"></a>
                 <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar">
-                    <ul class="navbar-nav me-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/">Search</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/map">Missouri Map</a></li>
+                    <ul class="navbar-nav red me-auto mt-2">
+                        <li class="nav-item h5"><a class="nav-link gray" href="/">Missouri City County Search</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/map">Map</a></li>
                         <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
                     </ul>
                 </div>
             </div>
@@ -48,15 +47,41 @@
         {% endif %}
 
         <main class="container py-5 text-center">
-            <div>
+            <div class="container-fluid">
                 {% block main %}
                 {% endblock %}
             </div>
         </main>
 
-        <footer class="mb-5">
-           <!--INSERT FOOTER???-->
-        </footer>
+
+        <footer class="footer border py-4">
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6 text-begin">
+                            <p font="small">&copy; 2025 Missouri City County Search. All rights reserved.</p>
+                        </div>
+
+
+
+                        <div class="col-md-3 text-end">
+                            <ul class="list-inline footer-links">
+                                <li class="list-inline-item">
+                                    <a href="/about">About</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="/contact">Contact</a></li>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3 text-begin">
+                            <a href="https://www.buymeacoffee.com/mocitycouna" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 144px !important;" ></a>
+                         </div>
+
+
+                    </div>
+                </div>
 
     </body>
 

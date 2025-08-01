@@ -1,7 +1,7 @@
 /* Size for brand */
 nav .navbar-brand
 {
-    font-size: xx-large;
+    font-size: x-large;
 }
 
 /* Colors for brand */
@@ -21,6 +21,15 @@ nav .navbar-brand .green
 {
     color: #2e944b;
 }
+nav .nav-item .gray
+{
+  color: #555;
+}
+
+nav .nav-item .red
+{
+  color: #ea433b;
+}
 
 .nobullet {
 list-style-type: none;
@@ -35,14 +44,6 @@ list-style-type: none;
     text-align: left; /* Aligns the list items to the left */
 }
 
-th, td {
-  padding-right: 40px;
-  max-width: 10px; /* Adjust as needed */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .center {
   margin-left: auto;
   margin-right: auto;
@@ -55,6 +56,22 @@ a.button {
     color: buttontext;
     background-color: buttonface;
     text-decoration: none;
+}
+
+.btn-primary {
+      background-color: #2d90d4;
+}
+
+.custom-blue-button {
+    background-color: #2d90d4; /* A light medium blue */
+    color: #FFFFFF; /* White text for contrast */
+}
+
+/* Optional: Style for hover and focus states */
+.custom-blue-button:hover,
+.custom-blue-button:focus {
+    color: #FFFFFF;
+    background-color: #226fa2; /* Slightly darker blue on hover/focus */
 }
 
 img {
@@ -92,14 +109,91 @@ select[type="list-long"] {
 }
 
 .table-striped tbody tr:nth-child(odd) {
-    background-color: #f2f2f2; /* Light gray for odd rows */
+    background-color: #f2f2f2; 
 }
 
 .table-striped tbody tr:nth-child(even) {
-    background-color: #ffffff; /* White for even rows (or a slightly different shade) */
+    background-color: #ffffff; 
+}
+
+/* .table-striped tbody tr:nth-child(3n) {
+    background-color: #FFCDD2; 
+}
+
+.table-striped tbody tr:nth-child(3n + 1) {
+    background-color: #F5F5F5; 
+}
+
+.table-striped tbody tr:nth-child(3n + 2) {
+    background-color: #B3E5FC; 
+} */
+
+th, td {
+  padding-right: 40px;
+  max-width: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .text-begin {
   text-align: left;
 }
 
+/* Style the header: fixed position (always stay at the top) */
+.header {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  background-color: #f1f1f1;
+  color: #555;
+}
+
+.footer {
+  background-color: #f0f0f0;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.8em; /* Makes the text in the footer smaller */
+  color: #555;
+  }
+
+/* The progress container (grey background) */
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background: #ccc;
+}
+
+/* The progress bar (scroll indicator) */
+.progress-bar {
+  height: 8px;
+  background: #04AA6D;
+  width: 0%;
+}
+
+#list-left {
+  text-align: left;
+  font-size: 0.875em;
+}
+
+a:link {
+  text-decoration: none;
+  color: #555;
+}
+
+a:visited {
+  text-decoration: none;
+  /* font-size: 0.8em; Makes the text in the footer smaller */
+  color: #555;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #555;
+}
+
+a:active {
+  text-decoration: underline;
+  color: #555;
+}
