@@ -14,8 +14,9 @@
         <!-- https://favicon.io -->
         <link rel="icon" href="{{url_for('static',filename='/images/favicon.ico')}}" type="image/x-icon">
 
-        <link href="/static/styles.css" rel="stylesheet">
-        <!-- <link href="{{url_for('static', filename='static/custom.css')}}" rel="stylesheet"> -->
+        <script src="{{ url_for('static', filename='/js/script.js') }}"></script>
+
+        <link href="static/styles.css" rel="stylesheet">
 
         <title>{% block title %}{% endblock %}</title>
     </head>
@@ -31,8 +32,9 @@
                     <ul class="navbar-nav red me-auto mt-2">
                         <li class="nav-item h5"><a class="nav-link gray" href="/">Missouri City County Search</a></li>
                         <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/faq">FAQs</a></li>
                         <li class="nav-item"><a class="nav-link" href="/map">Map</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -53,36 +55,37 @@
             </div>
         </main>
 
-
         <footer class="footer border py-4">
-            <div class="container">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-6 text-begin">
-                            <p font="small">&copy; 2025 Missouri City County Search. All rights reserved.</p>
-                        </div>
-
-
-
-                        <div class="col-md-3 text-end">
-                            <ul class="list-inline footer-links">
-                                <li class="list-inline-item">
-                                    <a href="/about">About</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="/contact">Contact</a></li>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="col-md-3 text-begin">
-                            <a href="https://www.buymeacoffee.com/mocitycouna" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 144px !important;" ></a>
-                         </div>
-
-
-                    </div>
+            <div class="col-md-12 row">
+                <div class="col-md-6 text-begin">
+                    <p font="small">&copy; 2025 Missouri City County Search. All rights reserved.</p>
                 </div>
+                <div class="col-md-3 text-begin">
+                    <ul class="list-inline footer-links">
+                        <li class="list-inline-item">
+                            <a href="/about">About</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="/contact">Contact</a></li>
+                        </li>
+                        <!-- <li>
+                            <a href="https://www.buymeacoffee.com/mocitycouna"  alt="Buy Me A Coffee" style="height: 30px !important;width: 108px !important;" >&#9749; Buy Me a Coffee</a>
+                        </li> -->
+                        <li>
+                            
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <a href="https://www.buymeacoffee.com/mocitycouna" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" style="height: 30px !important;width: 108px !important;" ></a>
+                </div>
+                
+                <!-- <div class="col-md-3">
+                    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="mocitycouna" data-color="#2d90d4" data-emoji="☕"  data-font="Arial" data-text="Buy me a coffee" data-outline-color="#ffffff" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+                </div> -->
+
+            </div>
+        </footer>
 
     </body>
-
 </html>

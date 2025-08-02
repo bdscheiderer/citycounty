@@ -1,6 +1,7 @@
 # my stuff
 source_data/
 flask_session/
+misc/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
