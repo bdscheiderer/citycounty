@@ -24,8 +24,10 @@
                     <thead>
                         <tr>
                             <th class="col-md-3 bg-dark text-white">Name</th>
+                            <th class="col-md-1 bg-dark text-white">Type</th>
                             <th class="col-md-2 bg-dark text-white">Population</th>
-                            <th class="col-md-5 bg-dark text-white">Class</th>
+                            <th class="col-md-4 bg-dark text-white">Class</th>
+                            <th class="col-md-2 bg-dark text-white">County/Seat</th>
                         </tr>
                     </thead>
                     </tbody>
@@ -33,8 +35,10 @@
                         {% for row in searchResults %}
                             <tr>
                                 <td class="text-begin">{{ row['name'] }}</td>
+                                <td class="text-begin">{{ row['type'] }}</td>
                                 <td class="text-end">{{ row['population'] }}</td>
                                 <td class="text-end">{{ row['class'] }}</td>
+                                <td class="text-end">{{ row['countyseat'] }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

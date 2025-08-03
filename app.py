@@ -15,12 +15,12 @@ TABLENAME = "citycounty"    # table name in db
 MAXPOP = 9999999            # higher than state population (essentially no upper limit)
 MINPOP = 0                  # sets lower limit for search terms
 
+load_dotenv() # Load environment variables from .env
+
 # start Flask session
 app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
-
-load_dotenv() # Load environment variables from .env
 
 # Flask-Mail configuration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com' 
@@ -29,10 +29,10 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
-
 mail = Mail(app)
 
 
+# route for "index" home page
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -48,28 +48,32 @@ def index():
         else:
             flash(f'No entries found!', 'warning')
             # return user to home/search from
-            return render_template('index.html')
-
+            return redirect(url_for("index"))
     else:
         # Handle GET request (e.g., display blank search form)
         return render_template('index.html')
 
 
+# route for about page, currently includes legal and privacy
 @app.route("/about")
 def about():
     return render_template("about.html")
 
 
+# route for contact page, email using using gmail smtp
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
+
+    # route if user completes form and clicks submit button
     if request.method == 'POST':
         email = request.form.get('email')
         subject = request.form.get('subject')
         text = request.form.get('text')
         name = request.form.get('name')
-
         body = f"{name}, {email}, sent an email about {subject}: {text}"
 
+        # proceed to send email and return user to home page,
+        # but only if user fills out form, else return to contact form
         if email and subject and text:
             try:
                 msg = Message(
@@ -86,19 +90,22 @@ def contact():
         else:
             flash('Please fill in all fields.', 'warning')
 
+    # GET route, user loads page from link
     return render_template('contact.html')
 
 
+# route for FAQs page
 @app.route("/faq")
 def faq():
     return render_template("faq.html")
 
 
+# route for page with Map of Missouri
 @app.route("/map")
 def map():
     return render_template("map.html")
 
-
+# route to results page to display search results
 @app.route("/results", methods=["GET", "POST"])
 def results():
 
@@ -192,14 +199,15 @@ def get_search_results(searchData):
 
 def log_entry(searchData):
     
-    ''' After user query, increment log:
+    ''' After user query, increment log and store query as a
+        string of the "searchData" dictionary values
         log table schema: user_id, dt, query
         Not currently storing user specific information
-        Storing "query" as string of searchData/dictionary values
     '''
     
     # prepare log entry
     user_id = '' # not currently using
+
 
     # connect to database and insert log entry
     db = sqlite3.connect(DATABASE)
