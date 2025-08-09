@@ -175,6 +175,8 @@ def get_search_results(searchData):
     '''
 
     # establish database connection
+    # db_path = os.path.join(os.environ['HOME'], 'citycounty', 'citycounty.db')
+    # db = sqlite3.connect(db_path)
     db = sqlite3.connect(DATABASE)
 
     # use row factory for dictionary-like data access (instead of a tuple)
@@ -210,7 +212,10 @@ def log_entry(searchData):
 
 
     # connect to database and insert log entry
+    # db_path = os.path.join(os.environ['HOME'], 'citycounty', 'citycounty.db')
+    # db = sqlite3.connect(db_path)
     db = sqlite3.connect(DATABASE)
+
     try:
         with db:
             cursor = db.cursor()
