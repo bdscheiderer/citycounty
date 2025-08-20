@@ -1,4 +1,4 @@
 flask
 flask_session
 dotenv
-sqlite3git clon
+sqlite3
