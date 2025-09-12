@@ -35,22 +35,39 @@ mail = Mail(app)
 # route for "index" home page
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        # Handle POST request (e.g., process form data)
-        searchData = get_search_data()
-        searchResults = get_search_results(searchData)
-        log_entry(searchData)
 
-        if len(searchResults) > 0:
-            flash(f'{len(searchResults)} entries found!', 'success')
+    # Handle POST request (e.g., process form data)
+    if request.method == 'POST':
+
+        # first check if advanced search button clicked
+        if 'advanced' in request.form:
+            description = request.form.get('description')
+            if description is not None and description != '':
+                search_data = get_adv_search_data(description)
+            else:
+                flash("Missing city-county description")
+                return redirect(url_for("index"))
+        
+        # else basic search button clicked (TO DO: what about enter button???)
+        else:
+            search_data = get_search_data()
+
+        # query db for search results
+        search_results = get_search_results(search_data)
+        log_entry(search_data)
+
+        # check for no results and send search results to results page
+        if len(search_results) > 0:
+            flash(f'{len(search_results)} entries found!', 'success')
             # render results.html with search results in table form
-            return render_template("results.html", searchResults=searchResults)
+            return render_template("results.html", search_results=search_results)
         else:
             flash(f'No entries found!', 'warning')
             # return user to home/search from
             return redirect(url_for("index"))
+        
+    # Handle GET request (e.g., display blank search form) 
     else:
-        # Handle GET request (e.g., display blank search form)
         return render_template('index.html')
 
 
@@ -105,6 +122,7 @@ def faq():
 def map():
     return render_template("map.html")
 
+
 # route to results page to display search results
 @app.route("/results", methods=["GET", "POST"])
 def results():
@@ -116,38 +134,38 @@ def results():
     # User reached route via GET/no reason to view this page unless as search result
     else:
         return redirect(url_for("index"))
+    
 
-
-def clean_data(searchData):
+def clean_data(search_data):
     
     ''' Modifies search form criteria so that the search terms 
         match sqlite syntax and database schema
     '''
 
     # iterate over the dictionary to clean data
-    for key, value in searchData.items():
+    for key, value in search_data.items():
         # if name is blank, the "%" wildcard will allow sqlite to return all entries
         if key == "name" and (value == "" or value == None):
-            searchData[key] = "%"
+            search_data[key] = "%"
         # this strips any whitespace and uses "%pattern%" to match partial names
         # note: sqlite search is case insensitive for ASCII characters
         elif key == 'name':
-             searchData[key] = f"%{value.strip()}%"
+             search_data[key] = f"%{value.strip()}%"
         # if max population is blank, set to a high value to return all greater than the min
         elif key == "upperValue" and (value == "" or value == None):
-            searchData[key] = MAXPOP
+            search_data[key] = MAXPOP
         # if min population is blank, set to zero to search for all up the max
         elif key == "lowerValue" and (value == "" or value == None):
-            searchData[key] = MINPOP
+            search_data[key] = MINPOP
         # if type is blank or "both", use "%" wildcard to search for both cities and counties
         elif key == "type" and (value == '' or value == None or value == "Both" or value == "both"):
-            searchData["type"] = "%"
+            search_data["type"] = "%"
         # if class blank, uses "%" wildcard to search for any class
         elif key == "class" and (value == '' or value== None):
-            searchData["class"] = "%"
+            search_data["class"] = "%"
 
     # return dictionary of cleaned data
-    return searchData
+    return search_data
 
 
 def get_search_data():
@@ -157,18 +175,18 @@ def get_search_data():
     '''
     
     # using dictionary to store the data from the row.factory sqlite3 option
-    searchData = {}
-    searchData['name'] = request.form.get('name')
-    searchData['lowerValue'] = request.form.get('lowerValue')
-    searchData['upperValue']= request.form.get('upperValue')
-    searchData['type'] = request.form.get('type')
-    searchData['class'] = request.form.get('class')
+    search_data = {}
+    search_data['name'] = request.form.get('name')
+    search_data['lowerValue'] = request.form.get('lowerValue')
+    search_data['upperValue']= request.form.get('upperValue')
+    search_data['type'] = request.form.get('type')
+    search_data['class'] = request.form.get('class')
 
     # run the clean_data function prior to return
-    return clean_data(searchData)
+    return clean_data(search_data)
 
 
-def get_search_results(searchData):
+def get_search_results(search_data):
 
     ''' Takes the search criteria from user input, establishes db 
         connection, performs sql query, and returns search results
@@ -184,7 +202,7 @@ def get_search_results(searchData):
 
     # create query as string and tuple of ? parameters
     query = f"Select * FROM {TABLENAME} WHERE name LIKE ? AND population >= ? AND population <= ? AND class LIKE ? AND type LIKE ?"
-    placeholders = (searchData['name'], searchData['lowerValue'], searchData['upperValue'], searchData['class'], searchData['type'])
+    placeholders = (search_data['name'], search_data['lowerValue'], search_data['upperValue'], search_data['class'], search_data['type'])
 
     # query database for search results, using ? placeholders
     try:
@@ -199,10 +217,31 @@ def get_search_results(searchData):
         return None
 
 
-def log_entry(searchData):
+def get_adv_search_data(description):
+    ''' TO DO: parse natural languge description 
+        to get search data for db query
+    '''
+    search_data = {}
+    
+    # to do fill in parsing algorithm
+
+
+
+
+    # test data
+    search_data['name'] = None
+    search_data['lowerValue'] = 999
+    search_data['upperValue']= 999999
+    search_data['type'] = None
+    search_data['class'] = None
+
+    return clean_data(search_data)
+
+
+def log_entry(search_data):   # TO DO: switch to proper logging
     
     ''' After user query, increment log and store query as a
-        string of the "searchData" dictionary values
+        string of the "search_data" dictionary values
         log table schema: user_id, dt, query
         Not currently storing user specific information
     '''
@@ -224,7 +263,7 @@ def log_entry(searchData):
                                 VALUES (?, ?, ?)''',
                                 (user_id, 
                                 datetime.now().isoformat(), 
-                                str(searchData))
+                                str(search_data))
                            )
             db.commit()
     except sqlite3.Error as e:

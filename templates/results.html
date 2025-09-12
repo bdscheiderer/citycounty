@@ -17,8 +17,8 @@
     <div class="responsive">
         <div class="table-responsive mt-0 mb-1">
 
-            {% if searchResults | length > 0 %}
-                Showing {{ searchResults | length }} search results:
+            {% if search_results | length > 0 %}
+                Showing {{ search_results | length }} search results:
                 <br>
                 <table class="table table-sm table-bordered table-striped">
                     <thead>
@@ -32,7 +32,7 @@
                     </thead>
                     </tbody>
                         <!-- Loop through the database entries to display them in a table -->
-                        {% for row in searchResults %}
+                        {% for row in search_results %}
                             <tr>
                                 <td class="text-begin">{{ row['name'] }}</td>
                                 <td class="text-begin">{{ row['type'] }}</td>

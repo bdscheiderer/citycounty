@@ -207,3 +207,7 @@ a:active {
 #scrollToTopBtn:hover {
     background-color: #0056b3; /* Darker shade of primary color */
 }
+
+.left-aligned-text {
+  text-align: left;
+}
