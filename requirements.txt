@@ -1,4 +1,3 @@
 flask
-flask_session
-dotenv
-sqlite3
+flask-mail
+python-dotenv
