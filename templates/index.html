@@ -6,48 +6,17 @@
 
 {% block main %}
     <div class="mt-0">
-        <p>
-            <h4 style="text-align: center;">Welcome to the Missouri City County Database Search App!</h4>
+        <p align="center">
+            <h5>Enter search criteria to search the Missouri City County database:</h5>
             <br>
         </p>
     </div>
-
-    <!-- Advanced Search Form (Natural Language)-->
-    <form action="/" method="post">
-        <div>
-            <p>
-                <h5 style="text-align: center;">(NEW!) Option 1: Advanced (Natural Language) Search Function</h5><br>
-            </p>
-
-            <div class="form-group mb-3">
-                <h6 style="text-align: left;"><i>Instructions: copy and paste the city-county description directly into the text box and click the advanced seach button:</i></h6> 
-                <br>
-                <div class="mb-3">
-                    <!-- <input autocomplete="off" class="form-control mx-auto" name="description" placeholder="Description" type="text"> -->
-
-                    <!-- <label for="sentenceEntry">Enter your sentence(s):</label> -->
-                    <textarea class="form-control w-95" name="description" id="sentenceEntry" rows="4" autofocus placeholder="Enter description here..."></textarea>
-                
-                </div>
-            </div>
-
-        </div>
-        <button class="btn custom-blue-button" name="advanced" type="submit">Advanced Search</button>
-    </form>
     
-    <br><br>
-
-    <!-- Basic Search Form -->
     <form action="/" method="post">
-        <div>
-            <p class="left-aligned-text">
-                <h5>Option 2: Basic Search</h5><br>
-            </p>
-        </div>
         <div class="row">
             <!-- Column for instructions -->
             <div class="col-md-6">
-                <i><h6>Instructions for basic search:</h6> 
+                <h6>Instructions</h6> 
                 <ul id="list-left">
                     <li>Name: Enter full or partial name.</li>
                     <li>Population: Enter minimum and maximum population criteria.</li>
@@ -55,7 +24,7 @@
                     <li>Classification: Select an option to narrow the search to a specific city or county classification</li>
                     <li>Leave all fields blank to return all cities and counties in the database. </li>
                     <li>A search will return the name, population, and classification of all matches. </li>
-                </ul></i>
+                </ul>
             </div>
 
             <!-- Column for input fields -->
@@ -96,7 +65,7 @@
                 <br>
             </div>
         </div>
-            <button class="btn custom-blue-button" name="basic" type="submit">Basic Search</button>
+            <button class="btn custom-blue-button" type="submit">Search</button>
     </form>
 
 

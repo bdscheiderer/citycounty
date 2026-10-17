@@ -11,7 +11,7 @@ import sqlite3
     citycounty schema: id INTEGER PRIMARY KEY, name TEXT NOT NULL,
     type TEXT, population INTEGER, class TEXT, countyseat TEXT
 '''
-DATABASE = "citycounty.db"  # sqlite3 database located in same directory
+DATABASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "citycounty.db")  # sqlite3 db in same directory as app.py
 TABLENAME = "citycounty"    # table name in db
 MAXPOP = 9999999            # higher than state population (essentially no upper limit)
 MINPOP = 0                  # sets lower limit for search terms
@@ -195,8 +195,6 @@ def get_search_results(search_data):
     '''
 
     # establish database connection
-    # db_path = os.path.join(os.environ['HOME'], 'citycounty', 'citycounty.db')
-    # db = sqlite3.connect(db_path)
     db = sqlite3.connect(DATABASE)
 
     # use row factory for dictionary-like data access (instead of a tuple)
