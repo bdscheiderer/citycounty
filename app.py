@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_mail import Mail, Message
+import csv
 import os
 from datetime import datetime
 from dotenv import load_dotenv
@@ -14,6 +15,7 @@ DATABASE = "citycounty.db"  # sqlite3 database located in same directory
 TABLENAME = "citycounty"    # table name in db
 MAXPOP = 9999999            # higher than state population (essentially no upper limit)
 MINPOP = 0                  # sets lower limit for search terms
+LOG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")  # monthly search logs
 
 load_dotenv() # Load environment variables from .env
 
@@ -54,7 +56,7 @@ def index():
 
         # query db for search results
         search_results = get_search_results(search_data)
-        log_entry(search_data)
+        log_entry("advanced" if "advanced" in request.form else "basic", search_data)
 
         # check for no results and send search results to results page
         if len(search_results) > 0:
@@ -238,37 +240,35 @@ def get_adv_search_data(description):
     return clean_data(search_data)
 
 
-def log_entry(search_data):   # TO DO: switch to proper logging
-    
-    ''' After user query, increment log and store query as a
-        string of the "search_data" dictionary values
-        log table schema: user_id, dt, query
-        Not currently storing user specific information
+def log_entry(search_type, search_data):
+
+    ''' After user query, append one row to this month's search log,
+        e.g. logs/searches-2026-10.csv (Central time). Records only the
+        date, time, search type, and search terms -- no personal
+        information (no IP address, user agent, or cookies)
     '''
-    
-    # prepare log entry
-    user_id = '' # not currently using
-
-
-    # connect to database and insert log entry
-    # db_path = os.path.join(os.environ['HOME'], 'citycounty', 'citycounty.db')
-    # db = sqlite3.connect(db_path)
-    db = sqlite3.connect(DATABASE)
 
     try:
-        with db:
-            cursor = db.cursor()
-            cursor.execute('''INSERT INTO log 
-                                (user_id, datetime, query) 
-                                VALUES (?, ?, ?)''',
-                                (user_id, 
-                                datetime.now().isoformat(), 
-                                str(search_data))
-                           )
-            db.commit()
-    except sqlite3.Error as e:
-        flash(f"Error updating log: {e}", "warning")
-    return None
+        from zoneinfo import ZoneInfo
+        now = datetime.now(ZoneInfo("America/Chicago"))
+        log_path = os.path.join(LOG_DIR, f"searches-{now:%Y-%m}.csv")
+
+        # show wildcards as blank and partial names without the "%" markers
+        terms = [str(search_data[key]).strip("%") for key in
+                 ("name", "lowerValue", "upperValue", "type", "class")]
+
+        os.makedirs(LOG_DIR, exist_ok=True)
+        new_file = not os.path.exists(log_path)
+        with open(log_path, "a", newline="") as f:
+            writer = csv.writer(f)
+            if new_file:
+                writer.writerow(["date", "time", "search", "name", "min_pop",
+                                 "max_pop", "type", "class"])
+            writer.writerow([f"{now:%Y-%m-%d}", f"{now:%H:%M:%S}", search_type] + terms)
+
+    # logging must never break a search
+    except Exception:
+        pass
 
 
 # Use "debug=True" for development server only
