@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block main %}
+    <!-- Countdown to next legislative session (static/countdown.js) -->
+    <p id="session-countdown" class="session-countdown" hidden></p>
+    <script src="{{ url_for('static', filename='countdown.js') }}"></script>
+
     <div class="mt-0">
         <p align="center">
             <h5>Enter search criteria to search the Missouri City County database:</h5>

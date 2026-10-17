@@ -211,3 +211,10 @@ a:active {
 .left-aligned-text {
   text-align: left;
 }
+
+/* small, muted countdown to next legislative session on home page */
+.session-countdown {
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
