@@ -1,10 +1,27 @@
 # Missouri City County Search
 
-**Live site: [www.mocitycounty.com](https://www.mocitycounty.com)**
+**Live site: [mocitycounty.com](https://mocitycounty.com)**
+
+Search Missouri cities and counties by population and classification for legislative drafting.
 
 I wrote this web app for searching population and legal classification data for every city and county in Missouri. The task of reading statutory language and working backwards to find the city or county it describes was a manual and laborious process. This app speeds up this research task that routinely comes up when reading and drafting Missouri legislation.
 
 ![Home page of Missouri City County Search](docs/screenshot.png)
+
+## How to use it
+
+Open [https://mocitycounty.com](https://mocitycounty.com). The home page is the search form. Fill in any combination of fields, then click **Search**.
+
+- **Name.** Full or partial. `Butler` and `Pop` both match.
+- **Minimum / maximum population.** Leave either box blank if you do not want that bound.
+- **City-County.** Cities only, counties only, or both.
+- **Classification.** County class, city class, village, or census-designated place. Leave it on the blank option to allow every class.
+
+Leave a field blank to skip that filter. Leave every field blank and search to list the whole database (114 counties and the cities, villages, and census-designated places in the file).
+
+The results table has five columns: name, type, population, class, and county or county seat. **New Search** clears the results and returns to the form. A search with no matches returns you to the form with a warning.
+
+The nav bar links **Home**, **FAQs**, and **Map**. The footer links **Contact**, **About**, **Legal**, and **Privacy** (Legal and Privacy both open the About page). Contact sends a message to the site inbox and needs the mail settings below. Search does not.
 
 ## The problem
 
