@@ -99,7 +99,7 @@ Search works without the mail settings; they're only needed for the contact form
 ## Roadmap
 
 - **Natural-language search:** paste a statutory description like the example above and have the app parse it into search criteria automatically (in progress)
-- Explanations of Missouri's city and county classification systems on the FAQ page
+- The FAQ lists the city and county classes used in the search and points to the Blue Book for the legal rules
 
 ## License
 
